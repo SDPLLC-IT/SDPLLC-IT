@@ -62,16 +62,16 @@
     border: 1px solid black;
 
     &--success {
-        background-color: rgb(177, 255, 177);
-        color: rgb(21, 110, 18);
-        border: 1px solid rgb(21, 110, 18);
+        background-color: rgb(229, 245, 229);
+        color: rgb(101, 141, 100);
+        border: 1px solid rgb(183, 207, 182);
         font-size: 1.4rem;
     }
 
     &--error {
-        background-color: rgb(255, 177, 177);
-        color: rgb(151, 27, 27);
-        border: 1px solid rgb(151, 27, 27);
+        background-color: #ffd7d7;
+        color: rgb(182, 85, 85);
+        border: 1px solid rgb(228, 160, 160);
     }
 }
 
