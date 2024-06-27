@@ -10,7 +10,7 @@ export const ValidateCertificate = () => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isValidating, setIsValidating] = useState(false);
 
-    // Data retrieved from the backend DB
+    // Data retrieved from the data base
     const certificates = [
         { id: "nOp2QrStUvWxYz", company: "Minería y Construcción SAC" },
         { id: "5678AbCdEfGhIj", company: "Industrias Metalúrgicas del Mar S.A." },
@@ -88,7 +88,12 @@ export const ValidateCertificate = () => {
         }
     }, [resultId]);
 
+
     useEffect(() => {
+        const min = 2000;
+        const max = 4500;
+        const time = (min) + (max - min) * Math.random()
+
         if(isSubmitted) {
             setIsValidating(true);
             setTimeout(() => {
@@ -100,7 +105,7 @@ export const ValidateCertificate = () => {
                 setErrorMessage("El certificado ingresado no es correcto")
                 setSuccessMessage("")
                 setIsValidating(false);
-            }, 2000)
+            }, time)
         }
     }, [isSubmitted])
 
@@ -114,8 +119,11 @@ export const ValidateCertificate = () => {
                     <input id="certificate"type="text" onChange={handleChange} name="certificate" required placeholder="Coloca el id del certificado"/>
                 </div>
                 <Button>{isValidating ? "Validando" : "Validar"}</Button>
-                {errorMessage && (<p className="message message--error">{errorMessage}</p>)}
-                {successMessage && (<p className="message message--success">{successMessage}</p>)}
+                {isValidating ? <div className="lds-dual-ring"></div> : (
+                    errorMessage ? (<p className="message message--error">{errorMessage}</p>) : (
+                        successMessage && (<p className="message message--success">{successMessage}</p>)
+                    )
+                )}
             </form>
         </>
     );

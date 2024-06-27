@@ -8,6 +8,8 @@ export const Form = ({type}) => {
     const [errorValidationMessage, setErrorValidationMessage] = useState("")
     const [dataValidated, setDataValidated] = useState(false);
     const navigate = useNavigate();
+    const [isValidating, setIsValidating] = useState(false);
+
     
     const [data, setData] = useState({
         companyName: "",
@@ -47,14 +49,22 @@ export const Form = ({type}) => {
     }
 
     useEffect(() => {
+        const min = 1000;
+        const max = 3000;
+        const time = (min) + (max - min) * Math.random()
+        console.log(time)
+
         if(dataValidated) {
+            setIsValidating(true);
             setTimeout(() => {
                 setSuccessMessage(`Hemos recibido tus datos ${data.contactName}, ${type === "cotiza" ? "te enviaremos tu cotización" : "nos pondremos en contacto contigo"} a la brevedad.`)
-            }, 1000)
+                setIsValidating(false);
+            }, time)
             setTimeout(() => {
                 setSuccessMessage("")
                 navigate('/inicio');
-            }, 4000)
+
+            }, time + 3000)
         }
     },[dataValidated])
 
@@ -97,12 +107,13 @@ export const Form = ({type}) => {
                 {errorValidationMessage && (
                     <p className="message message--error">{errorValidationMessage}</p>
                 )}
-                <Button>Enviar</Button>
+                <Button>{isValidating ? "Enviando" : "Enviar"}</Button>
                 <p className="small">Tus datos son 100% confidenciales, no los compartiremos con terceros.</p>
+                {isValidating ? <section className="lds-dual-ring"></section> : (
+                    successMessage && (
+                        <p className="message message--success">{successMessage}</p>
+                    ))}   
             </form>     
-            {successMessage && (
-                <p className="message message--success">{successMessage}</p>
-            )}   
         </>
     );
 }

@@ -1,7 +1,11 @@
 header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
+
+    @media screen and (min-width: 768px) {
+        position: fixed;
+     }
     width: 100vw;
     background-color: var(--main-light-opac90);
     color: var(--secondary);
@@ -35,7 +39,10 @@ header {
 
     &__item {
         width: 95px;
-        margin: 0 10px;
+        margin: 7px 10px;
+        @media screen and (min-width: 768px) {
+            margin: 0 10px;
+         }
         &:hover {
             font-weight: 700;
         }
